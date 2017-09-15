@@ -20,7 +20,10 @@ public class TutorialApp extends Application
     private static final String USERNAME = "MrCrayfish";
     private static final String PASSWORD = "Cheese";
 
-    // All components should be declared on a global scope so we avoid forward references
+    /*
+     * All components should be declared on a global scope
+     * so we don't have any forward reference problems
+     */
     private Layout layoutLogin;
     private Label labelUsername;
     private TextField textFieldUsername;
