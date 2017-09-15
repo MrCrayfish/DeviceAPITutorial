@@ -2,18 +2,17 @@ package com.mrcrayfish.tutorial.app;
 
 import com.mrcrayfish.device.Reference;
 import com.mrcrayfish.device.api.app.Application;
-import com.mrcrayfish.device.api.app.Component;
 import com.mrcrayfish.device.api.app.Layout;
 import com.mrcrayfish.device.api.app.component.Button;
 import com.mrcrayfish.device.api.app.component.Label;
 import com.mrcrayfish.device.api.app.component.TextField;
-import com.mrcrayfish.device.api.app.listener.ClickListener;
-import com.mrcrayfish.device.api.app.listener.InitListener;
-import com.mrcrayfish.device.api.task.Callback;
 import com.mrcrayfish.device.api.utils.BankUtil;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
+ * Example application covering Layouts, Components, Click Listener, Init Listener
+ * and the Bank Utility.
+ *
  * Author: MrCrayfish
  */
 public class TutorialApp extends Application
@@ -21,6 +20,7 @@ public class TutorialApp extends Application
     private static final String USERNAME = "MrCrayfish";
     private static final String PASSWORD = "Cheese";
 
+    // All components should be declared on a global scope so we avoid forward references
     private Layout layoutLogin;
     private Label labelUsername;
     private TextField textFieldUsername;
@@ -58,10 +58,13 @@ public class TutorialApp extends Application
         buttonLogin = new Button("Login", 5, 75, 90, 20);
         buttonLogin.setClickListener((component, mouseButton) ->
         {
+            // If left clicked on button
             if(mouseButton == 0)
             {
+                // Test if username and password field match the credentials
                 if(textFieldUsername.getText().equals(USERNAME) && textFieldPassword.getText().equals(PASSWORD))
                 {
+                    // Change the layout of the application to display the balance
                     this.setCurrentLayout(layoutBalance);
                 }
             }
@@ -69,10 +72,12 @@ public class TutorialApp extends Application
         layoutLogin.addComponent(buttonLogin);
 
         layoutBalance = new Layout(100, 50);
-        layoutBalance.setInitListener(() ->
+        layoutBalance.setInitListener(() -> //Creates an init listener. Called when set as current layout
         {
+            //Gets the balance of the player
             BankUtil.getBalance((nbtTagCompound, success) ->
             {
+                // If request was successful, set the label to player's balance.
                 if(success)
                 {
                     labelBalance.setText("$" + nbtTagCompound.getInteger("balance"));
@@ -84,6 +89,7 @@ public class TutorialApp extends Application
         labelBalance.setScale(2.0);
         layoutBalance.addComponent(labelBalance);
 
+        // Sets the current/initial layout to the login screen
         this.setCurrentLayout(layoutLogin);
     }
 
