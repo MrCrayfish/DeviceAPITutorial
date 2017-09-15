@@ -1,0 +1,16 @@
+[
+{
+  "modid": "app_tutorial",
+  "name": "Tutorial App",
+  "description": "A tutorial mod on how to create an app",
+  "version": "0.0.1",
+  "mcversion": "1.11.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["MrCrayfish"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
